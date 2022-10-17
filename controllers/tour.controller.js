@@ -22,11 +22,36 @@ const createTour = async (req, res) =>{
 
 const getTours = async (req, res) =>{
     try {
-        const tours = await getToursService();
-        res.status(200).json({
+        const {fields, page, limit,sort} = req.query;
+        const queries ={};
+
+        // query by fields
+        if(fields){
+            const fieldsArray = fields.split(',').join('');
+            queries.select = fieldsArray;
+        }
+
+        // query by paginated
+        if(page || limit){
+            const currentPage = parseInt(page);
+            const limitPerPage = parseInt(limit);
+            const skip = (currentPage - 1) * limitPerPage;
+            queries.skip = skip;
+            queries.limit = limitPerPage;
+        }
+
+        // query by sorted
+        if(sort){
+            const sortBy = sort.split(',').join(' ');
+            queries.sort = sortBy;
+        }
+
+
+        const tours = await getToursService(queries);
+        res.status(200).send({
             status:"success",
             data:tours
-        })
+        });
         
     } catch (error) {
         res.status(400).send({
