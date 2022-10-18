@@ -1,5 +1,6 @@
-const {createTourService, getToursService, getTourService} = require("../services/tour.services");
+const {createTourService, getToursService, getTourService, updateTourService} = require("../services/tour.services");
 
+// CREATE TOUR
 const createTour = async (req, res) =>{
     // console.log(req.body);
     try {
@@ -19,7 +20,7 @@ const createTour = async (req, res) =>{
 }
 
 
-
+// GET TOURS
 const getTours = async (req, res) =>{
     try {
         const {fields, page, limit,sort} = req.query;
@@ -64,7 +65,7 @@ const getTours = async (req, res) =>{
 
 
 
-
+// GET SINGLE TOUR
 const getTour = async (req, res) => {
     try {
         const tour = await getTourService(req.params.id);
@@ -83,9 +84,25 @@ const getTour = async (req, res) => {
 }
 
 
+const updateTour = async (req, res) =>{
+    try {
+        const tour = await updateTourService(req.params.id.trim(), req.body);
+        res.status(200).send({
+            status: success,
+            message: "Successfully updated the product",
+            data: tour
+        })
+    } catch (error) {
+        res.status(400).send({
+            status: "fail",
+            message: "can't update data",
+            error:error.message 
+         })
+    }
+}
 
 
 
 module.exports = {
-    createTour, getTours, getTour
+    createTour, getTours, getTour, updateTour
 }
