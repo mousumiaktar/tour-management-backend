@@ -1,4 +1,5 @@
 const express = require("express");
+const createDatabaseConnection = require("./utils/dbConnection")
 const app = express();
 const cors = require("cors");
 const dotenv = require("dotenv").config();
@@ -23,10 +24,8 @@ app.get('/', (req, res) => {
 
 
 
-// Database connection
-mongoose.connect(process.env.DATABASE_LOCAL).then(()=>{
-    console.log(`Database connected successfully`);
-});
+// DATABASE CONNECTION
+createDatabaseConnection();
 
 
 app.listen(port, ()=>{
