@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+require('dotenv').config({ path: 'ENV_FILENAME' });
 
 
 
@@ -8,7 +8,7 @@ const createDatabaseConnection = () => {
 
         useNewUrlParser: "true",
         useUnifiedTopology: "true"
-        
+
     }, (err) => {
         if (err) {
             console.log(`Error: ${err.message}`);
