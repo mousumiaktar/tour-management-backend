@@ -1,4 +1,10 @@
-const {createTourService, getToursService, getTourService, updateTourService} = require("../services/tour.services");
+const {
+    createTourService, 
+    getToursService, 
+    getTourService, 
+    updateTourService, 
+    getTrendingTourService, 
+    getCheapestToursService} = require("../services/tour.services");
 
 // CREATE TOUR
 const createTour = async (req, res) =>{
@@ -102,7 +108,41 @@ const updateTour = async (req, res) =>{
 }
 
 
+const getTrendingTours = async (req, res) => {
+    try {
+        const tours = await getTrendingTourService();
+        res.status(200).send({
+        status: success,
+            message: "Successfully updated the product",
+            data: tours
+        });
+    } catch (error) {
+        res.status(400).send({
+            status: "fail",
+            message: "can't update data",
+            error:error.message 
+         })
+    }
+}
+
+
+const getCheapestTours = async (req, res) => {
+    try {
+        const tours = await getCheapestToursService();
+        res.status(200).send({
+            success: true,
+            data: tours
+        });
+    } catch (err) {
+        res.status(400).send({
+            success: false,
+            message: err.message
+        });
+    }
+}
+
+
 
 module.exports = {
-    createTour, getTours, getTour, updateTour
+    createTour, getTours, getTour, updateTour, getTrendingTours, getCheapestTours
 }
