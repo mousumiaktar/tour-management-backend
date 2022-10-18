@@ -3,9 +3,14 @@ require('dotenv').config();
 
 
 
-const createDatabaseConnection = () =>{
-    mongoose.connect(process.env.DATABASE_LOCAL, {}, (err) => {
-        if(err){
+const createDatabaseConnection = () => {
+    mongoose.connect(process.env.DATABASE_LOCAL, {
+
+        useNewUrlParser: "true",
+        useUnifiedTopology: "true"
+        
+    }, (err) => {
+        if (err) {
             console.log(`Error: ${err.message}`);
             process.exit(1);
         }
