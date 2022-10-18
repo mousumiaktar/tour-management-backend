@@ -5,6 +5,8 @@ exports.createTourService = async (data) => {
     return await Tour.create(data);
 };
 
+
+
 // GET TOUR SERVICES
 exports.getToursService = async (queries) =>{
     // return await Tour.find({queries})
@@ -17,4 +19,10 @@ exports.getToursService = async (queries) =>{
     .sort(queries.sort);
     return {pageCount, counts, result};
 
+}
+
+
+// GET SINGLE TOUR SERVICE
+exports.getTourService = async (id) =>{
+    return await Tour.findById(id);
 }

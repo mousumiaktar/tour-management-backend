@@ -1,4 +1,4 @@
-const {createTourService, getToursService} = require("../services/tour.services");
+const {createTourService, getToursService, getTourService} = require("../services/tour.services");
 
 const createTour = async (req, res) =>{
     // console.log(req.body);
@@ -65,8 +65,27 @@ const getTours = async (req, res) =>{
 
 
 
+const getTour = async (req, res) => {
+    try {
+        const tour = await getTourService(req.params.id);
+        res.status(200).send({
+            status:"success",
+            data:tour
+        });
+        
+    } catch (error) {
+        res.status(400).send({
+            status: "fail",
+            message: "can't get the data",
+            error:error.message 
+         })
+    }
+}
+
+
+
 
 
 module.exports = {
-    createTour, getTours
+    createTour, getTours, getTour
 }
