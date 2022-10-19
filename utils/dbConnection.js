@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-dotenv.config( { path : 'config.env'} )
+const dotenv= require('dotenv').config();
+// dotenv.config( { path : 'config.env'} )
 
 
 
 const createDatabaseConnection = () => {
+    // console.log(process.env.DATABASE_LOCAL)
     mongoose.connect(process.env.DATABASE_LOCAL, {
 
         useNewUrlParser: "true",
